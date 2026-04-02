@@ -43,38 +43,3 @@ python3 wx_beacon.py                    # normal run (uses wx_station.json)
 python3 wx_beacon.py --config my.json   # custom config
 python3 wx_beacon.py --once             # collect one interval then exit
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ClassResponsibilityWXBeaconMain orchestrator, runs rtl_433, manages threadsWXAggregatorConverts rtl_433 fields → standardized weather dict (handles °C/°F, m/s, km/h, etc.)APRSBuilderBuilds the exact APRS position+weather stringAPRSISSenderTCP connection to APRS-IS Tier-2 server (login, keepalive, reconnect)NetworkKISSSender + KISSFrameKISS-over-TCP AX.25 UI framing for RF transmissionRawLoggerJSON rolling log of every received packetAPRSWriterAtomic write of latest beacon to disk_build_status_tableRich live dashboard
