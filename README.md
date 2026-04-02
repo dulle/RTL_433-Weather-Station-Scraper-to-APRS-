@@ -28,7 +28,7 @@ and periodically generates a standard APRS weather packet that can be sent via m
 - Robust error handling – restarts rtl_433 if it dies, reconnects network links, graceful shutdown on SIGINT/SIGTERM.
 - One-shot mode (--once) for testing or cron-style use.
 
-****Architecture (key classes)
+**Architecture**
 **
 - **WXBeacon** - Main orchestrator, runs rtl_433, manages threads
 - **WXAggregator** - Converts rtl_433 fields → standardized weather dict (handles °C/°F, m/s, km/h, etc.)
