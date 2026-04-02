@@ -40,7 +40,7 @@ and periodically generates a standard APRS weather packet that can be sent via m
 - **_build_status_table** - Rich live dashboard
 
 **Usage**
-python3 wx_beacon.py                    # normal run (uses wx_station.json)
-python3 wx_beacon.py --config my.json   # custom config
-python3 wx_beacon.py --once             # collect one interval then exit
+python3 wx_beacon.py                        # normal run (uses wx_station.json)
+python3 wx_beacon.py --config my.json      # custom config
+python3 wx_beacon.py --once                # collect one interval then exit
 
