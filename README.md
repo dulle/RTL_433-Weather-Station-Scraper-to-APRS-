@@ -45,6 +45,8 @@ and periodically generates a standard APRS weather packet that can be sent via m
 - python3 wx_beacon.py --config my.json      # custom config
 - python3 wx_beacon.py --once                # collect one interval then exit
 
+___________________________________________________________________
+
 **RUNNING IT AS A SERVICE**
 
 There are a few ways, depending on your OS. What are you running on? 
