@@ -137,5 +137,6 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 **6. Verify it survives a reboot**
 
 sudo reboot
-# After it comes back up:
+
+#- After it comes back up:
 sudo systemctl status wx-beacon
