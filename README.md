@@ -58,3 +58,81 @@ which python3        # e.g. /usr/bin/python3
 which rtl_433        # e.g. /usr/local/bin/rtl_433
 pwd                  # run this from your project folder to get the full path
 
+2. Create the service file
+
+sudo nano /etc/systemd/system/wx-beacon.service
+
+**Paste this** — edit the paths to match your setup:
+
+[Unit]
+Description=RTL-SDR Weather Station APRS Beacon
+# Wait for network before starting (needed for APRS-IS mode)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/wx-beacon
+ExecStart=/usr/bin/python3 /home/pi/wx-beacon/wx_beacon.py --config /home/pi/wx-beacon/wx_station.json
+
+# Restart automatically if it crashes
+Restart=always
+RestartSec=10
+
+# Give rtl_433 time to release the USB device on stop
+TimeoutStopSec=15
+
+# Log stderr/stdout to the journal (read with: journalctl -u wx-beacon)
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=wx-beacon
+
+[Install]
+WantedBy=multi-user.target
+
+User=pi — change to your actual username (whoami to check). Never run as root unless you have to.
+WorkingDirectory — the folder containing wx_beacon.py and wx_station.json.
+
+**3. Enable and start it**
+
+# Reload systemd so it sees the new file
+sudo systemctl daemon-reload
+
+# Enable it — this makes it auto-start on every boot
+sudo systemctl enable wx-beacon
+
+# Start it right now without rebooting
+sudo systemctl start wx-beacon
+
+# Check it's running
+sudo systemctl status wx-beacon
+
+**4. Useful commands**
+
+# Live log output (Ctrl+C to exit)
+journalctl -u wx-beacon -f
+
+# Last 100 lines of log
+journalctl -u wx-beacon -n 100
+
+# Stop the service
+sudo systemctl stop wx-beacon
+
+# Restart after making changes to the script
+sudo systemctl restart wx-beacon
+
+# Disable auto-start (but don't delete the file)
+sudo systemctl disable wx-beacon
+
+**5. RTL-SDR USB permissions (common issue**)
+
+sudo usermod -aG plugdev pi
+# Then reboot, or run:
+sudo udevadm control --reload-rules && sudo udevadm trigger
+
+**6. Verify it survives a reboot**
+
+sudo reboot
+# After it comes back up:
+sudo systemctl status wx-beacon
