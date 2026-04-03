@@ -45,3 +45,13 @@ and periodically generates a standard APRS weather packet that can be sent via m
 - python3 wx_beacon.py --config my.json      # custom config
 - python3 wx_beacon.py --once                # collect one interval then exit
 
+**RUNNING IT AS A SERVICE**
+
+There are a few ways, depending on your OS. What are you running on? 
+User: Linux (Raspberry Pi / Ubuntu / Debian)
+**systemd** is the right tool — it's built into every modern Raspberry Pi OS, Ubuntu, and Debian. Here's how to set it up:
+
+1. Find your paths first
+which python3        # e.g. /usr/bin/python3
+which rtl_433        # e.g. /usr/local/bin/rtl_433
+pwd                  # run this from your project folder to get the full path
