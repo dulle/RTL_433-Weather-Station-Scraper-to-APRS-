@@ -99,39 +99,39 @@ WorkingDirectory — the folder containing wx_beacon.py and wx_station.json.
 
 **3. Enable and start it**
 
-# Reload systemd so it sees the new file
+#- Reload systemd so it sees the new file
 sudo systemctl daemon-reload
 
-# Enable it — this makes it auto-start on every boot
+#- Enable it — this makes it auto-start on every boot
 sudo systemctl enable wx-beacon
 
-# Start it right now without rebooting
+#- Start it right now without rebooting
 sudo systemctl start wx-beacon
 
-# Check it's running
+#- Check it's running
 sudo systemctl status wx-beacon
 
 **4. Useful commands**
 
-# Live log output (Ctrl+C to exit)
+#- Live log output (Ctrl+C to exit)
 journalctl -u wx-beacon -f
 
-# Last 100 lines of log
+#- Last 100 lines of log
 journalctl -u wx-beacon -n 100
 
-# Stop the service
+#- Stop the service
 sudo systemctl stop wx-beacon
 
-# Restart after making changes to the script
+#- Restart after making changes to the script
 sudo systemctl restart wx-beacon
 
-# Disable auto-start (but don't delete the file)
+#- Disable auto-start (but don't delete the file)
 sudo systemctl disable wx-beacon
 
 **5. RTL-SDR USB permissions (common issue**)
 
 sudo usermod -aG plugdev pi
-# Then reboot, or run:
+#- Then reboot, or run:
 sudo udevadm control --reload-rules && sudo udevadm trigger
 
 **6. Verify it survives a reboot**
