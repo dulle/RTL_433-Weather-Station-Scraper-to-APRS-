@@ -52,13 +52,13 @@ User: Linux (Raspberry Pi / Ubuntu / Debian)
 
 **systemd** is the right tool — it's built into every modern Raspberry Pi OS, Ubuntu, and Debian. Here's how to set it up:
 
-1. Find your paths first
-   
+**1. Find your paths first**
+
 which python3        # e.g. /usr/bin/python3
 which rtl_433        # e.g. /usr/local/bin/rtl_433
 pwd                  # run this from your project folder to get the full path
 
-2. Create the service file
+**2. Create the service file**
 
 sudo nano /etc/systemd/system/wx-beacon.service
 
@@ -66,7 +66,7 @@ sudo nano /etc/systemd/system/wx-beacon.service
 
 [Unit]
 Description=RTL-SDR Weather Station APRS Beacon
-# Wait for network before starting (needed for APRS-IS mode)
+#- Wait for network before starting (needed for APRS-IS mode)
 After=network-online.target
 Wants=network-online.target
 
@@ -76,20 +76,21 @@ User=pi
 WorkingDirectory=/home/pi/wx-beacon
 ExecStart=/usr/bin/python3 /home/pi/wx-beacon/wx_beacon.py --config /home/pi/wx-beacon/wx_station.json
 
-# Restart automatically if it crashes
+#- Restart automatically if it crashes
 Restart=always
 RestartSec=10
 
-# Give rtl_433 time to release the USB device on stop
+#- Give rtl_433 time to release the USB device on stop
 TimeoutStopSec=15
 
-# Log stderr/stdout to the journal (read with: journalctl -u wx-beacon)
+#- Log stderr/stdout to the journal (read with: journalctl -u wx-beacon)
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=wx-beacon
 
 [Install]
 WantedBy=multi-user.target
+
 
 User=pi — change to your actual username (whoami to check). Never run as root unless you have to.
 WorkingDirectory — the folder containing wx_beacon.py and wx_station.json.
